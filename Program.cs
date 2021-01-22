@@ -26,40 +26,29 @@ namespace HomeworkLesson2
                 B = 0;
             }
 
-            Console.WriteLine($"A: {A}");
-            Console.WriteLine($"B: {B}");
+            Console.WriteLine($"A: {A} B: {B}");
 
             //2nd assignment
             var operand1 = 6;
-            var operand2 = 2;
+            var operand2 = 0;
             Console.Write("Sign: ");
             string sign = Console.ReadLine();
 
-            switch (sign)
+            double result = sign switch {
+                "-" => operand1 - operand2,
+                "+" => operand1 + operand2,
+                "*" => operand1 * operand2,
+                "/" => operand2 == 0 ? double.NaN : operand1 / operand2,
+                _   => 0
+            };
+
+            if (double.IsNaN(result))
             {
-                case "-":
-                Console.WriteLine(operand1 - operand2);
-                break;
-
-                case "+":
-                Console.WriteLine(operand1 + operand2);
-                break;
-
-                case "*":
-                Console.WriteLine(operand1 * operand2);
-                break;
-
-                case "/":
-                if (operand2 == 0)
-                {
-                    Console.WriteLine("Нельзя делить на 0");
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine(operand1 / operand2);
-                }
-                break;
+                Console.WriteLine($"Нельзя делить на ноль"); 
+            }
+            else
+            {
+                Console.WriteLine($"Результат операции: {result}");
             }
 
             //3rd assignment
@@ -138,46 +127,21 @@ namespace HomeworkLesson2
             Console.Write("c: ");
             int.TryParse(Console.ReadLine(), out int c);
 
-            var aSwapped = a;
-            var bSwapped = b;
-            int cSwapped = c;
+            int tempA = a;
+            if (a <= b && a <= c)
+            {
+                a = Math.Max(b, c);
+            }
 
-            if (c >= b && c >= a && b >= a)
+            int tempC = c;
+            c = Math.Min(b, Math.Min(tempA, c));
+
+            if (b >= a)
             {
-                aSwapped = c;
-                cSwapped = a;
-                Console.WriteLine($"Числа: {aSwapped}, {bSwapped}, {cSwapped}");
+                Math.Max(tempA, tempC);
             }
-            else if (c >= b && c >= a && b <= a)
-            {
-                aSwapped = c;
-                bSwapped = a;
-                cSwapped = b;
-                Console.WriteLine($"Числа: {aSwapped}, {bSwapped}, {cSwapped}");
-            }
-            else if (b >= c && b >= a && c >= a)
-            {
-                aSwapped = b;
-                bSwapped = c;
-                cSwapped = a;
-                Console.WriteLine($"Числа: {aSwapped}, {bSwapped}, {cSwapped}");
-            }
-            else if (b >= c && b >= a && c <= a)
-            {
-                aSwapped = b;
-                bSwapped = a;
-                Console.WriteLine($"Числа: {aSwapped}, {bSwapped}, {cSwapped}");
-            }   
-            else if (a >= c && a >= b && b <= c)
-            {
-                bSwapped = c;
-                cSwapped = b;
-                Console.WriteLine($"Числа: {a}, {b}, {c}");
-            }   
-            else
-            {
-                Console.WriteLine($"Числа: {a}, {b}, {c}");
-            }   
+
+            Console.WriteLine($"{a} , {b} , {c}");
         }
     }
 }
